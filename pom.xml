@@ -15,8 +15,6 @@
 
     <build>
         <plugins>
-
-            <!-- Exécute SoapUI en ligne de commande -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -28,21 +26,24 @@
                         <goals>
                             <goal>exec</goal>
                         </goals>
-
                         <configuration>
-                            <!-- CORRECTION : utiliser la variable d'environnement Windows -->
                             <executable>${env.SOAPUI_HOME}\bin\testrunner.bat</executable>
 
                             <arguments>
+                                <!-- SoapUI project file -->
                                 <argument>${project.basedir}/src/test/resources/soapui/Petstore-soapui-project.xml</argument>
+
+                                <!-- Generate JUnit reports -->
+                                <argument>-j</argument>
+
+                                <!-- Report output folder -->
+                                <argument>-f</argument>
+                                <argument>${project.basedir}/target/surefire-reports</argument>
                             </arguments>
                         </configuration>
-
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
-
 </project>
